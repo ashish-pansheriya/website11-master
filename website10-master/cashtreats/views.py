@@ -48,9 +48,9 @@ def payment(request):
 
         try:
             charge = stripe.Charge.create(
-                amount = amount,
-                currency='usd',
-                description='payment successful',
+                amount = request.POST.get("amount"),
+                name = request.POST.get("full_name")
+                description = request.POST.get("description")
                 source=request.POST['stripeToken']
             )
 
