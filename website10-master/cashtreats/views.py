@@ -53,6 +53,12 @@ def payment(request):
                 description='payment successful',
                 source=request.POST['stripeToken']
             )
+            
+            transRetrive = stripe.Charge.retrieve(
+            charge["id"],
+            api_key="Key"
+            )
+        charge.save() # Uses the same API Key.
 
             messages.success(request, "Payment succesful!.")
 
