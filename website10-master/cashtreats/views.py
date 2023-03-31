@@ -41,17 +41,17 @@ def services(request):
 
 # Added by Godspower
 def payment(request):
-    user = request.user
+    Key = settings.STRIPE_PUBLISHABLE_KEY
 
     if request.method == 'POST':
-        amount = int[request.POST['amount']
+        amount = int(request.POST['amount'])
 
         try:
             charge = stripe.Charge.create(
                 amount = request.POST.get("amount"),
-                name = request.POST.get("full_name")
-                description = request.POST.get("description")
-                source=request.POST['stripeToken']
+                name = request.POST.get("full_name"),
+                description = request.POST.get("description"),
+                source=request.POST['stripeToken'],
             )
 
             messages.success(request, "Payment succesful!.")
