@@ -7,25 +7,13 @@ lines (107 sloc) 4.53 KB
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Pay with stripe</title>
     <script src="https://js.stripe.com/v3/"></script>
-    <link rel="stylesheet" href="{% static 'main/bootstrap/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'main/fonts/fontawesome-all.min.css' %}">
-    <link rel="stylesheet" href="{% static 'main/fonts/font-awesome.min.css' %}">
-    <link rel="stylesheet" href="{% static 'main/fonts/ionicons.min.css' %}">
-    <link rel="stylesheet" href="{% static 'main/fonts/ionicons.min.css' %}">
-    <link rel="stylesheet" href="{% static 'main/css/Footer-Dark.css' %}">
-    <link rel="stylesheet" href="{% static 'main/css/Navigation-with-Search.css' %}">
-    <link rel="stylesheet" href="{% static 'main/fonts/material-icons.min.css' %}">
-    <link rel="stylesheet" href="{% static 'main/fonts/fontawesome5-overrides.min.css' %}">
-    <link rel="stylesheet" href="{% static 'main/css/search_popup.css' %}">
-    <link rel="stylesheet" href="{% static 'main/css/Contact-Form-Clean.css' %}">
-    <link rel="stylesheet" href="{% static 'main/css/styles.min.css' %}">
 </head>
 <body>
 
 
 
 <div   class="contact-clean">
-<h3 class="text-center text-dark">Donate to Witlevels?</h3>
+<h3 class="text-center text-dark">Make payment</h3>
         <form action="" style="width:100%; max-width:100%;" method="post" id="payment-form">
 	    {% csrf_token %}
             <div class="illustration"><i class="icon ion-ios-navigate"></i></div>
