@@ -83,9 +83,7 @@ def payment(request):
         return redirect('userPanel')
     return render(request, 'payment.html', {
         'Key':Key,
-        'price':price,
-        'deposit':deposit,
-        'deposit_int':deposit_int,
+        'amount': amount
     })
 
 
