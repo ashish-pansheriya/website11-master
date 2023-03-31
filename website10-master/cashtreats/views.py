@@ -80,7 +80,7 @@ def payment(request):
             messages.error(request, 'Error paying with your card at the moment')
             return redirect('payment')
 
-        return redirect('userPanel')
+        return redirect('/')
     return render(request, 'payment.html', {
         'Key':Key,
         'amount': amount
