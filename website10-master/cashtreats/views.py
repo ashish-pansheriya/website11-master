@@ -7,6 +7,11 @@ from friends.models import friends
 from rest_framework import viewsets
 from .serializers import rest
 
+# Ensure to "PIP install stripe
+import stripe
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
+
 class restframe(viewsets.ModelViewSet):
     queryset = databank.objects.all()
     serializer_class = rest
@@ -33,6 +38,56 @@ def policy(request):
 
 def services(request):
     return render(request, 'cashtreats/services.html', )
+
+# Added by Godspower
+def payment(request):
+    user = request.user
+
+    if request.method == 'POST':
+        amount = int[request.POST['amount']
+
+        try:
+            charge = stripe.Charge.create(
+                amount = amount,
+                currency='usd',
+                description='payment successful',
+                source=request.POST['stripeToken']
+            )
+
+            messages.success(request, "Payment succesful!.")
+
+        except stripe.error.CardError as e:
+            messages.error(request, 'There was an error charging your card, ensure ypu have sufficient funds')
+            return redirect('payment')
+
+        except stripe.error.RateLimitError as e:
+            messages.error(request, 'Rate Error')
+            return redirect('payment')
+
+        except stripe.error.InvalidRequestError as e:
+            messages.error(request, 'Invalid requestor!')
+            return redirect('payment')
+
+        except stripe.error.AuthenticationError as e:
+            messages.error(request, 'Invalid API auth')
+            return redirect('payment')
+
+        except stripe.error.StripeError as e:
+            messages.error(request, 'Stripe Error')
+            return redirect('payment')
+
+        except Exception as e:
+            messages.error(request, 'Error paying with your card at the moment')
+            return redirect('payment')
+
+        return redirect('userPanel')
+    return render(request, 'payment.html', {
+        'Key':Key,
+        'price':price,
+        'deposit':deposit,
+        'deposit_int':deposit_int,
+    })
+
 
 
 # def upload(request,user_id):
