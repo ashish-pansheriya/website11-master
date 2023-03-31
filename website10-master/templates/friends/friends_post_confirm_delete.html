@@ -1,0 +1,31 @@
+
+{% include 'base.html' %}
+{% include 'nav.html' %}
+{% load static %}
+
+
+  <title>{% block title %} H O M E {% endblock %}</title>
+
+{% block body %}
+<body class="container-fluid" style="background:linear-gradient(-120deg, #ba0c2f, #ffcd00, #c9c9c9);">
+
+
+<div class="container-fluid" style="background:linear-gradient(to top, #58151A, #BC2909, #BA6D09, #71A8EE, #3072EB, #1552C6, #0542A8);">
+<div class="content-saction">
+
+    <form method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Delete Post</legend>
+            <h2>Are you sure you want to delete the post"{{object.title}}"</h2>
+
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-outline-danger" type="submit">Yes, Delete</button>
+                <a class="btn btn-outline-secondary" href="{% url 'friend-post-detail' object.id %}">Cancel</a>
+        </div>
+    </form>
+</div>
+</div>
+</body>
+{% endblock %}

@@ -1,0 +1,13 @@
+
+{% include 'base.html' %}
+{% include 'nav.html' %}
+{% load static %}
+
+
+  <title>{% block title %} H O M E {% endblock %}</title>
+
+{% block body %}
+<video style="  position: absolute;right: 0;bottom: 0;min-width: 100%;min-height: 100%;" autoplay muted loop id="myVideo">
+    <source src="{% static 'assets/video/friends.mp4' %}" type="video/mp4">
+    </video>
+{% endblock %}

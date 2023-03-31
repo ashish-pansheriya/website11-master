@@ -1,0 +1,66 @@
+
+{% include 'base.html' %}
+{% include 'nav.html' %}
+{% load static %}
+
+
+<head>
+  <title>{% block title %}Event Details {% endblock %}</title>
+</head>
+{% block body %}
+<body  style="background:linear-gradient(120deg, #122B40, #446CB3);">
+
+  <div class="card bg-light mb-3 mx-auto  "  style="max-width: 1200px; margin-top: 22px;background-image: linear-gradient( 110.8deg,  rgba(86,238,225,1) 11.4%, rgba(176,255,39,1) 84.5% );">
+    <div class="row no-gutters">
+      <div class="col-md-8">
+        <img src="{{ object.image.url }}" class="card-img" alt="...">
+      </div>
+    <div class="col-md-4 ">
+      <div class="card-body">
+        <div class="card-header"><h5 class="card-title">{{object.title}}</h5>
+          <h4 class="card-text"><i class="fas fa-ticket-alt"></i> {{ object.tickets }}</h4></div>
+          <div class="card-body text-dark">
+          <p class="card-text"><i class="fas fa-map-marker-alt"></i> {{ object.location }}</p>
+          <h4 class="card-title"><i class="far fa-calendar"></i> {{ object.starts }} to {{ object.ends }} <i class="fas fa-clock"></i></h4></div>
+
+      </div>
+    </div>
+    </div>      <!-- <p class="card-text"><small class="text-muted">{{object.date_posted}}</small></p>-->
+
+    <div class="col-md-10">
+
+      <div class="card-body">
+        <h3 class="card-title">About this Event</h3>
+        <p class="card-text">{{ object.description | safe}}</p>
+
+
+        <small class="text-muted">Event topic</small> {{ object.topic }}
+        <p><small class="text-muted">Type of event</small> {{ object.types }}</p>
+        <small class="text-muted">Organizer</small> {{ object.organiser }}
+        <p><small class="text-muted">About Organizer</small> {{ object.description2 }}</p>
+ <p>
+  <a class="btn btn-danger" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+    Contact Now
+  </a>
+</p>
+<div class="collapse" id="collapseExample">
+  <div class="card card-body">
+      <h5 class="text-primary"><i class="fas fa-phone"></i> {{object.contact}}</h5>
+      <h5 class="text-primary"><i class="fas fa-envelope-open"></i> {{object.email}}</h5>
+  </div>
+</div>
+          <div class="fb-like" data-href="http://127.0.0.1:8000/events{{object.id}}" data-width="" data-layout="button_count" data-action="like" data-size="large" data-share="true"></div><br>
+        <div class="fb-comments" data-href="http://127.0.0.1:8000/events{{object.id}}" data-numposts="5" data-width=""></div>
+      </div>
+    </div>
+  </div>
+
+ <div class="card-header">          {% if object.author == user %}
+<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'event-post-update' object.id %}"> Update</a>
+<a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'event-post-delete' object.id %}"> Delete</a>
+   <p class="card-text"><small class="text-muted"><i class="far fa-calendar-check"></i>  Created on {{object.date_posted|date:"F d, Y"}}</small></p>
+    {% endif %}</div>
+
+</body>
+{% include 'cashtreats/footer-sort.html' %}
+{% endblock %}

@@ -1,0 +1,73 @@
+
+{% include 'base.html' %}
+{% include 'nav.html' %}
+{% load static %}
+{% block javascript %}
+{% load crispy_forms_tags %}
+  {# JQUERY FILE UPLOAD SCRIPTS #}
+
+<body style="background-color: #FA8BFF;
+background-image: linear-gradient(340deg, #FA8BFF 0%, #2BD2FF 52%, #2BFF88 90%)">
+
+  <script src="{% static 'assets/js/jquery-file-upload/vendor/jquery.ui.widget.js' %}"></script>
+  <script src="{% static 'assets/js/jquery-file-upload/jquery.iframe-transport.js' %}"></script>
+  <script src="{% static 'assets/js/jquery-file-upload/jquery.fileupload.js' %}"></script>
+
+  {# PHOTOS PAGE SCRIPTS #}
+  <script src="{% static 'photos/js/progress-bar-upload.js' %}"></script>
+{% endblock %}
+{% block body %}
+<div class="row-center ">
+<form method="POST" >
+        {% csrf_token %}
+
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4 text-center">About your self</legend>
+
+            <div class="row-center ">
+        <div class="col-lg-10 pb-4">
+        {{ formv|crispy }}
+        </div>
+            </div>
+
+        </fieldset>
+    {% comment %}
+    {% block photos_content %}
+  <div class="col-lg-10 pb-4"><h5> Upload minimum 2 photos</h5>
+    <button type="button" class="btn btn-primary js-upload-photos">
+      <span class="glyphicon glyphicon-cloud-upload"></span> Upload photos
+    </button>
+
+    <input id="fileupload" type="file" name="file" multiple
+           style="display: none;"
+           data-url="{% url 'friend-post-create' %}"
+           data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
+  </div>
+<div class="col-lg-10 pb-4">
+  <table id="gallery" class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Photo</th>
+      </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+  </table>
+</div>
+    {% endblock %}
+     {% endcomment %}
+        <div class="col-lg-10 pb-4">
+            <button class="btn btn-success btn-lg" type="submit">Post</button>
+        </div>
+            </form>
+
+
+</div>
+
+
+
+
+
+
+{% endblock %}

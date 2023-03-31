@@ -1,0 +1,73 @@
+
+{% include 'base.html' %}
+{% include 'nav.html' %}
+{% load static %}
+
+
+  <title>{% block title %} H O M E {% endblock %}</title>
+
+{% block body %}
+<body style="background-color: #9a007a;
+background-image: linear-gradient(90deg, #9a007a 15%, #ffffff 51%, #004367 92%);
+">
+
+<form method='GET'>
+  <input type='text' name='q' value='{{ request.GET.q }}'>
+  <input class="button" type='submit' value="Search Profile">
+</form>
+<div>
+{% for posts in queryset %}
+{{posts.name}}
+{% endfor %}
+</div>
+
+
+<div class="row mx-auto" style="margin-top: 22px;" >
+
+    {% for posts in queryset %}
+    <div class="col-md-3 ">
+        <div class="mx-auto" >
+            <div class="mx-auto" >
+                 <div class="card bg-light mb-5 mx-auto">
+                     <div class="row no-gutters">
+                        <div class="col-md-12" >
+                             <a href="{% url 'friend-post-detail' posts.id %}"><img src="media/{{ posts.photo }}" class="card-img" alt="..."></a>
+                        </div>
+                        <div class="col-md-12">
+                            <a class="custom-card" style="color: #212529; text-decoration: none;" href="{% url 'friend-post-detail' posts.id %}">
+                                <div class="card-body" style="padding:15px 5px 1px 15px;">
+  <table class="table table-borderless text-info">
+  <tbody>
+    <tr>
+        <td style="padding:4px; width:20px"><h6 class="text-secondary">Name:</h6></td>
+        <td style="padding:4px; ">{{posts.name}}</td>
+    </tr>
+    <tr>
+        <td style="padding:4px; width:20px"><h6 class="text-secondary"><i class="fas fa-map-marker-alt"></i> </h6></td>
+        <td style="padding:4px;">{{ posts.address }}</td>
+    </tr>
+    <tr>
+        <td style="padding:4px; width:20px"><h6 class="text-secondary">Age:</h6></td>
+      <td style="padding:4px; ">{{posts.age}}</td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+                            </div></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- if last column in row -->
+        {% if forloop.counter|divisibleby:"100" and not forloop.last %}
+        </div><div class="row">
+        {% endif %}
+    {% endfor %}
+</div>
+
+</body>
+{% endblock %}

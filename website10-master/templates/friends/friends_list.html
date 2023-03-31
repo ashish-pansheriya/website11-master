@@ -1,0 +1,29 @@
+
+{% include 'base.html' %}
+{% include 'nav.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+  <title>{% block title %} H O M E {% endblock %}</title>
+
+{% block body %}
+<body class="container-fluid" style="background:linear-gradient(-120deg, #ba0c2f, #ffcd00, #c9c9c9);">
+
+
+<div class="container-fluid" style="background:linear-gradient(to top, #58151A, #BC2909, #BA6D09, #71A8EE, #3072EB, #1552C6, #0542A8);">
+<div class="content-saction">
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Blog Post</legend>
+            {{ form|crispy }}
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-outline-info" type="submit">Post</button>
+        </div>
+    </form>
+</div>
+</div>
+</body>
+{% endblock %}

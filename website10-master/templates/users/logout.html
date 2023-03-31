@@ -1,0 +1,22 @@
+
+{% include 'base.html' %}
+{% include 'nav.html' %}
+{% load static %}
+
+
+  <title>{% block title %} H O M E {% endblock %}</title>
+
+{% block body %}
+<h2>You Have been logged out</h2>
+
+<div class="border-top pt-3">
+        <small class="text-muted">Already Have An Account?<a class="ml-2" href="{% url 'login' %}" >Log In Again</a></small>
+    </div>
+
+
+<body class="container-fluid" style="background:linear-gradient(-120deg, #ba0c2f, #ffcd00, #c9c9c9);">
+
+
+
+</body>
+{% endblock %}

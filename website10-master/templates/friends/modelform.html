@@ -1,0 +1,41 @@
+
+{% include 'base.html' %}
+{% include 'nav.html' %}
+{% load static %}
+{% block javascript %}
+{% load crispy_forms_tags %}
+  {# JQUERY FILE UPLOAD SCRIPTS #}
+
+  <script src="{% static 'assets/js/jquery-file-upload/vendor/jquery.ui.widget.js' %}"></script>
+  <script src="{% static 'assets/js/jquery-file-upload/jquery.iframe-transport.js' %}"></script>
+  <script src="{% static 'assets/js/jquery-file-upload/jquery.fileupload.js' %}"></script>
+
+  {# PHOTOS PAGE SCRIPTS #}
+  <script src="{% static 'photos/js/progress-bar-upload.js' %}"></script>
+{% endblock %}
+{% block body %}
+
+<form method="POST" >
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Blog Post</legend>
+
+            <div class="row">
+      <div class="col-6">
+        {{ formv.name|as_crispy_field }}
+      </div>
+            </div>
+        </fieldset>
+ <div class="form-group">
+            <button class="btn btn-success btn-lg" type="submit">Post</button>
+ </div>
+</form>
+
+
+
+
+<body class="container-fluid" style="background:linear-gradient(to top, #040308, #AD4A28, #DD723C, #FC7001, #DCB697, #9BA5AE, #3E5879, #020B1A);">
+
+
+</body>
+{% endblock %}

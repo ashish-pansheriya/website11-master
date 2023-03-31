@@ -1,0 +1,66 @@
+{% include 'base.html' %}
+{% include 'nav.html' %}
+{% load static %}
+{% block body %}
+<link rel="stylesheet" href="{% static 'glow-on-hover.css' %}">
+<head>
+  <title>{% block title %} Hifriend❤at${% endblock %}</title>
+</head>
+<body >
+
+<div>
+   <section id="carousel" style="">
+        <div class="carousel slide" data-ride="carousel" id="carousel-1">
+            <div class="carousel-inner" role="listbox" style="font-family: 'Architects Daughter', cursive;">
+                <div class="carousel-item">
+                    <div class="jumbotron pulse animated carousel-hero" style=" background-image: url(&quot;/static/assets/img/party.jpg&quot;);">
+                        <h3 class="hero-title">The Power Of Events Around Us </h3>
+                        <p class="hero-subtitle">Enjoy Upcoming Events.</p>
+                        <p></p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="jumbotron pulse animated carousel-hero" style="background-image: url(&quot;/static/assets/img/xbox.jpg&quot;);">
+                        <h3 class="hero-title">Buy/Sell/Rent Items, everywhere</h3>
+                        <p class="hero-subtitle">"Enjoy classified ads"</p>
+                        <p></p>
+                    </div>
+                </div>
+                <div class="carousel-item active">
+                    <div class="jumbotron pulse animated carousel-hero" style="background-image: url(&quot;/static/assets/img/crowd-dances.jpg&quot;);">
+                        <h3 class="hero-title"><i class="fab fa-earlybirds"></i>Search friends near you</h3>
+                        <p class="hero-subtitle">Enjoy Earning Money </p>
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+            <div><a class="carousel-control-prev" href="#carousel-1" role="button" data-slide="prev"><i class="fa fa-chevron-left"></i><span class="sr-only">Previous</span></a><a class="carousel-control-next" href="#carousel-1" role="button" data-slide="next"><i class="fa fa-chevron-right"></i><span class="sr-only">Next</span></a></div>
+            <ol
+                class="carousel-indicators">
+                <li data-target="#carousel-1" data-slide-to="0"></li>
+                <li data-target="#carousel-1" data-slide-to="1"></li>
+                <li data-target="#carousel-1" data-slide-to="2" class="active"></li>
+                </ol>
+        </div>
+    </section>
+
+
+ <div class="example-box">
+        <div class="background-shapes"></div>
+         <p class="lead text-center">
+         <a class="nav-link" href="{% url 'friend-home' %}" title="Look for events near by you"><i class="fas fa-street-view"></i><strong>  Meet Intersting Friend&nbsp;</strong><i class="fas fa-street-view"></i><br></a></li>
+         <a class="nav-link" href="{% url 'event-home' %}" title="Look for events near by you"><i class="fab fa-fort-awesome"></i><strong>  Events tomorrow&nbsp;</strong><i class="fab fa-fort-awesome"></i><br></a></li>
+         <a class="nav-link" href="{% url 'post-home' %}" title="Look for events near by you"><i class="fas fa-tags"></i><strong>  Buy/Sell/Rent Items&nbsp;</strong><i class="fas fa-tags"></i><br></a></li>
+         <a class="nav-link" href="{% url 'recruiter-home' %}" title="Look for events near by you"><i class="fas fa-id-badge"></i><strong>  Recruiters Bay&nbsp;</strong><i class="fas fa-id-badge"></i><br></a></li>
+    </div>
+    <div>{% include 'blogs/blog_home.html' %}</div>
+
+
+
+
+
+{% include 'cashtreats/footer.html' %}
+{% endblock %}
+</body>
+
+</html>

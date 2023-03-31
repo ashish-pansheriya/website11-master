@@ -1,0 +1,188 @@
+
+{% include 'base.html' %}
+{% include 'nav.html' %}
+{% load static %}
+
+
+<head xmlns="http://www.w3.org/1999/html">
+  <title>{% block title %}Profile Details {% endblock %}</title>
+</head>
+
+<body style="background:linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d);">
+
+
+<div class="card bg-light mb-3 mx-auto"  style="background-color: #FA8BFF;
+background-image: linear-gradient(315deg, #FA8BFF 0%, #2BD2FF 52%, #2BFF88 90%);">
+    <div class="row no-gutters">
+      <div class="col-md-8">
+        <img src="{{ object.photo.url }}" class="card-img" alt="...">
+      </div>
+    <div class="col-md-4 ">
+      <div class="card-body" style="padding:10px 10px 5px 10px;">
+        <div class="card-header">
+            <table class="table table-borderless text-dark">
+  <tbody>
+    <tr>
+        <td style="padding:4px; width:20px"><h6 class="text-dark">Name:</h6></td>
+        <td style="padding:4px;"><h5 class="text-dark"> {{object.name}}</h5></td>
+    </tr>
+
+    <tr>
+        <td style="padding:4px; width:20px"><h6 class="text-dark">Age:</h6></td>
+      <td style="padding:4px; "><h6 class="text-dark">{{object.age}}</h6></td>
+    </tr>
+      <tr>
+        <td style="padding:4px; width:20px"><h6 class="text-white"><i class="fas fa-map-marker-alt"></i> </h6></td>
+        <td style="padding:4px;"><h6 class="text-white">{{ object.address }}</h6></td>
+    </tr>
+  </tbody>
+</table>
+        </div>
+      </div>
+    </div>
+    </div>      <!-- <p class="card-text"><small class="text-muted">{{object.date_posted}}</small></p>-->
+
+    <div class="col-md-10">
+
+      <div class="card-body" style="padding:5px 5px 10px 10px;">
+
+          <table class="table table-borderless text-dark" style="table-layout:fixed;">
+  <tbody>
+    <tr>
+        <td style="padding:4px; width: 80px"><h6 class="text-secondary ">About:</h6></td>
+        <td style="padding:4px;"><h6 class="text-dark"> {{object.about}}</h6></td>
+    </tr>
+    <tr>
+        <td style="padding:4px; width:20px"><h6 class="text-secondary">Gender:</h6></td>
+      <td style="padding:5px 5px 10px 5px; ">{{object.gender}}</td>
+    </tr>
+      <tr>
+        <td style="padding:4px; width:20px"><h6 class="text-secondary">Body:</h6></td>
+      <td style="padding:4px; ">{{object.body}}</td>
+    </tr>
+      <tr>
+        <td style="padding:4px; width:20px"><h6 class="text-secondary">Height:</h6></td>
+      <td style="padding:4px; ">{{object.height}}</td>
+    </tr>
+      <tr>
+        <td style="padding:4px; width:20px"><h6 class="text-secondary">Language:</h6></td>
+      <td style="padding:4px; ">{{object.language}}</td>
+    </tr>
+        </tr>
+      <tr>
+        <td style="padding:4px; width:20px"><h6 class="text-secondary">Activities:</h6></td>
+      <td style="padding:4px; ">{{object.activities}}</td>
+    </tr>
+      <tr>
+        <td style="padding:4px; width:20px"><h6 class="text-secondary">Fees:</h6></td>
+      <td style="padding:4px; ">{{object.fees}}</td>
+    </tr>
+  </tbody>
+</table>
+
+
+          {% block content %}
+
+
+
+
+          <p>
+  <a class="btn btn-danger" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+    Contact Now
+  </a>
+</p>
+<div class="collapse" id="collapseExample">
+  <div class="card card-body">
+      <h5 class="text-primary"><i class="fas fa-phone"></i> {{object.contact}}</h5>
+      <h5 class="text-primary"><i class="fas fa-envelope-open"></i> {{object.email}}</h5>
+  </div>
+</div>
+
+
+
+<form action="{% url 'payment' %}" method="post" id="payment-form">
+    {% csrf_token %}
+    <div class="form-row">
+        <label for="card-element">
+            Credit or debit card
+        </label>
+        <div id="card-element">
+            <!-- A Stripe Element will be inserted here. -->
+        </div>
+
+        <!-- Used to display Element errors. -->
+        <div id="card-errors" role="alert"></div>
+    </div>
+
+    <button>Submit Payment</button>
+</form>
+<script type="text/javascript" src="/javascripts/jquery-3.1.1.min.js"></script>
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+    var stripe = Stripe('{{ stripe_key }}');
+    var elements = stripe.elements();
+
+    // Set up Stripe.js and Elements to use in checkout form
+    var style = {
+        base: {
+            color: "#32325d",
+            fontFamily: 'Arial, sans-serif',
+            fontSmoothing: "antialiased",
+            fontSize: "16px",
+            "::placeholder": {
+                color: "#aab7c4"
+            }
+        },
+        invalid: {
+            color: "#fa755a",
+            iconColor: "#fa755a"
+        }
+    };
+
+    var card = elements.create("card", { style: style });
+    card.mount("#card-element");
+
+    card.on("change", function (event) {document.querySelector("#card-errors").textContent = event.error ? event.error.message : "";
+});
+var form = document.getElementById("payment-form");
+   form.addEventListener("submit", function (event) {
+       event.preventDefault();
+       stripe.createToken(card).then(function (result) {
+           if (result.error) {
+               // Inform the user if there was an error
+               document.querySelector("#card-errors").textContent = result.error.message;
+           } else {
+               // Send the token to your server
+               stripeTokenHandler(result.token);
+           }
+       });
+   });
+
+   function stripeTokenHandler(token) {
+       // Insert the token ID into the form so it gets submitted to the server
+       var form = document.getElementById("payment-form");
+       var hiddenInput = document.createElement("input");
+       hiddenInput.setAttribute("type", "hidden");
+       hiddenInput.setAttribute("name", "stripeToken");
+       hiddenInput.setAttribute("value", token.id);
+       form.appendChild(hiddenInput);
+
+       // Submit the form
+       form.submit();
+   }</script>
+   {% endblock %}
+
+
+          <p class="card-text"><small class="text-muted"><i class="far fa-calendar-check"></i> Profile Created on {{object.date_posted|date:"F d, Y"}}</small></p>
+      </div>
+ <div class="card-header">          {% if object.author == user %}
+<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'friend-post-update' object.id %}"> Update</a>
+<a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'friend-post-delete' object.id %}"> Delete</a>
+   <p class="card-text"><small class="text-muted"><i class="far fa-calendar-check"></i>  Created on {{object.date_posted|date:"F d, Y"}}</small></p>
+    {% endif %}</div>
+
+    </div>
+</body>
+
+{% include 'cashtreats/footer-sort.html' %}
+

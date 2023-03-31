@@ -1,0 +1,162 @@
+
+{% include 'base.html' %}
+{% include 'nav.html' %}
+{% load static %}
+
+
+<head>
+  <title>{% block title %}Friends Home {% endblock %}</title>
+</head>
+{% block body %}
+<body style="background:linear-gradient(120deg, #414b56, #00a2e1);">
+
+<form method='GET' style="margin: 10px auto;" action="{% url 'friend-home' %}">
+<div class="input-group" style="width: 70%; margin: 10px auto;">
+    <input type="text"  name='q'  class="form-control" placeholder="Search city Example: London .. where you are looking a friend .." style="padding-left: 2.375rem;">
+    <div class="input-group-append">
+        <button class="btn btn-danger" type='submit' style="border-radius: 1px 5px 5px 1px;" type="button">
+        <i class="fa fa-search"></i>
+      </button>
+    </div>
+</div>
+<div class="text-center" style="background:linear-gradient(120deg, #414b56, #00a2e1); width: 100%">
+    <input type="radio" style="height:16px; width:16px; vertical-align: middle;" name="all" value="m"> All <i class="fas fa-venus-mars"></i>
+    <input type="radio" style="height:16px; width:16px; vertical-align: middle;" name="gender" value="Female"> Female <i class="fas fa-venus"></i>
+    <input type="radio" style="height:16px; width:16px; vertical-align: middle;" name="gender" value="Male"> Male <i class="fas fa-mars"></i>
+</div>
+</form>
+
+
+
+<div class="row mx-auto" style="margin-top: 22px;" >
+
+    {% for posts in queryset %}
+    <div class="col-md-3">
+        <div class="mx-auto" >
+            <div class="mx-auto" >
+                 <div class="card bg-light mb-5 mx-auto">
+                     <div class="row no-gutters">
+                        <div class="col-md-12" >
+                             <a href="{% url 'friend-post-detail' posts.id %}"><img src="media/{{ posts.photo}}" style="width: 100%; height: 50vh; object-fit: cover   ;" class="card-img" alt="..."></a>
+                        </div>
+                        <div class="col-md-12">
+                            <a class="custom-card" style="color: #212529; text-decoration: none;" href="{% url 'friend-post-detail' posts.id %}">
+                                <div class="card-body" style="padding:15px 5px 1px 15px;">
+  <table class="table table-borderless text-info">
+  <tbody>
+    <tr>
+        <td style="padding:4px; width:20px"><h6 class="text-secondary">Name:</h6></td>
+        <td style="padding:4px; ">{{posts.name|truncatewords:3}}</td>
+    </tr>
+    <tr>
+        <td style="padding:4px; width:20px"><h6 class="text-secondary"><i class="fas fa-map-marker-alt"></i> </h6></td>
+        <td style="padding:4px;">{{ posts.address |truncatewords:4}}</td>
+    </tr>
+    <tr>
+        <td style="padding:4px; width:20px"><h6 class="text-secondary">Age:</h6></td>
+      <td style="padding:4px; ">{{posts.age}}</td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+                            </div></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- if last column in row -->
+        {% if forloop.counter|divisibleby:"100" and not forloop.last %}
+        </div><div class="row">
+        {% endif %}
+    {% endfor %}
+
+    <!-- pagination template -->
+
+</div>
+<div class="d-flex justify-content-center">{% include 'cashtreats/blog_post_pagination.html' with queryset=queryset %}</div>
+
+<div>
+    <hr class="my-4">
+         <div class="container-fluid">
+            <div class="d-flex justify-content-center">
+                <h2 style="text-align:center"><i class="fas fa-star-half"></i>People are using Hire a buddy for all kinds of activities:</h2>
+            </div>
+    <hr class="my-4">
+            <div class="container-fluid justify-content-center">
+                <div class="row">
+                <div class="col-sm-3 justify-content-center">
+                <ul class="list-group">
+                    <li>Introduce you to people</li>
+                    <li>Work with assignments</li>
+                    <li>Friends With Disabled</li>
+                    <li>Friends with Seniors</li>
+                    <li>Poetry/Art/Drawing</li>
+                    <li>Teaching Manners</li>
+                    <li>Amusement Parks</li>
+                    <li>Family Functions</li>
+                    <li>Workout Partner</li>
+                    <li>Business Events</li>
+                    <li>Outdoor Events</li>
+                </ul>
+                </div>
+                <div class="col-sm-3 justify-content-center">
+                    <ul class="list-group">
+                    <li>Dinner</li>
+                    <li>Arcade</li>
+                    <li>Psychic</li>
+                    <li>Biking</li>
+                    <li>Beach</li>
+                    <li>Skiing</li>
+                    <li>Parties</li>
+                    <li>Hiking</li>
+                    <li>Music</li>
+                    <li>Picnics</li>
+                    <li>Travel</li>
+                </ul>
+                </div>
+                <div class="col-sm-3 justify-content-center">
+                <ul class="list-group">
+                    <li>Phone Friend</li>
+                    <li>Photography</li>
+                    <li>Giving Tours</li>
+                    <li>Sightseeing</li>
+                    <li>Prom Dates</li>
+                    <li>Museums</li>
+                    <li>Religious</li>
+                    <li>Shopping</li>
+                    <li>Tutoring</li>
+                    <li>Clubbing</li>
+                    <li>Projects</li>
+                </ul>
+                </div>
+                <div class="col-sm-3 justify-content-center">
+
+                <ul class="list-group">
+                    <li>Baking/Cooking</li>
+                    <li>Sporting Events</li>
+                    <li>Snow boarding</li>
+                    <li>Hot Air Balloon</li>
+                    <li>Playing Sports</li>
+                    <li>Going To Park</li>
+                    <li>Meet Friends</li>
+                    <li>Wine Tasting</li>
+                    <li>Comedy Club</li>
+                    <li>Going to Bar</li>
+                    <li>Hanging Out</li>
+                </ul>
+                </div>
+            </div>
+            </div><br>
+<p class="lead text-center">
+    <a class="btn btn-dark btn-lg border-pretty" href="{% url 'friend-home' %}" role="button" >Hire a Friend <i class="icon ion-android-arrow-forward"></i></a>
+</p>
+        </div></div>
+
+
+{% include 'cashtreats/footer-sort.html' %}
+</body>
+{% endblock %}

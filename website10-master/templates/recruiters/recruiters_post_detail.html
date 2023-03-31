@@ -1,0 +1,82 @@
+
+{% include 'base.html' %}
+{% include 'nav.html' %}
+{% load static %}
+
+
+<head>
+  <title>{% block title %}Recruiter Details {% endblock %}</title>
+</head>
+{% block body %}
+<body  style="background:linear-gradient(120deg, #122B40, #446CB3);">
+
+  <div class="card bg-light mb-3 mx-auto"  style="max-width: 1200px; margin-top: 22px;background-image: linear-gradient( 110.8deg,  rgba(86,238,225,1) 11.4%, rgba(176,255,39,1) 84.5% );">
+    <div class="row no-gutters">
+      <div class="col-md-4">
+        <img src="{{ object.image.url }}" class="card-img" alt="...">
+      </div>
+    <div class="col-md-4 ">
+      <div class="card-body">
+          <div class="card-header">
+          <h6 class="text-dark">  {{ object.name |truncatewords:20}} </h6>
+          {{ object.designation |truncatewords:20}} <br>
+              <p></p>
+          <i class="far fa-building"></i> <strong>  {{ object.company |truncatewords:3}}</strong><br>
+          <p > <i class="fas fa-map-marker-alt"></i>    {{ object.location |truncatewords:3}}</p>
+        <h5 class="card-title">{{object.title}}</h5>
+          </div>
+
+
+      </div>
+    </div>
+
+        <!--div class="col-md-4 ">
+      <div class="card-body">
+          <div class="card-header">
+           <p class="card-text"><small class="text-muted">{{object.date_posted}}</small></p>
+          </div>
+
+
+      </div>
+    </div>
+    </div>   -->
+
+    <div class="col-md-10">
+
+      <div class="card-body">
+        <h5 class="card-title">Sectors and Skills I hire for</h5>
+          <p><small class="text-muted">Industry type</small><br> {{ object.industry }}</br><p>
+          <small class="text-muted">Skills/Roles I hire for :</small><br>
+                                {{ object.skill |truncatewords:30}}<br>
+                                <p>
+
+
+<small class="text-muted">Required experience</small><br> {{ object.job_exp }} year <br><br>
+        <small class="text-muted">Requirement Position</small><br> {{ object.job_title }}<p>
+        <p><small class="text-muted">Job description</small><br> {{ object.job_details }}</br>
+<h6 class="card-title"> Interview Date <br><i class="far fa-calendar"></i>   {{ object.starts }} to {{ object.ends }}</h6><br>
+
+ <p>
+  <a class="btn btn-danger" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+    Contact Now
+  </a>
+</p>
+<div class="collapse" id="collapseExample">
+  <div class="card card-body">
+      <h5 class="text-primary"><i class="fas fa-phone"></i>   {{object.contact}}</h5>
+      <h5 class="text-primary"><i class="fas fa-envelope-open"></i>   {{object.email}}</h5>
+  </div>
+</div>
+      </div>
+    </div>
+  </div>
+
+ <div class="card-header">          {% if object.author == user %}
+<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'recruiter-post-update' object.id %}"> Update</a>
+<a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'recruiter-post-delete' object.id %}"> Delete</a>
+   <p class="card-text"><small class="text-muted"><i class="far fa-calendar-check"></i>  Created on {{object.date_posted|date:"F d, Y"}}</small></p>
+    {% endif %}</div>
+
+</body>
+{% include 'cashtreats/footer-sort.html' %}
+{% endblock %}

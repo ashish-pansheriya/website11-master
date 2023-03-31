@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<!--html-- lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+ <h6 class="card-text"><small class="text-muted">{{posts.date_posted|date:"F d, Y"}}</small></h6>
+
+<nav class="navbar navbar-dark navbar-expand-lg bg-white border rounded-0 portfolio-navbar gradient" style="font-family: Lato, sans-serif; ">
+        <div class="container"><a class="navbar-brand logo" data-bs-hover-animate="tada" href="{% url 'home' %}" style="font-family: Lato, sans-serif;line-height: 32px;">Ca$H<i class="fas fa-gem"></i>Treat$<br></a><button data-toggle="collapse" class="navbar-toggler" data-target="#navbarNav"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div
+                class="collapse navbar-collapse" id="navbarNav">
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item pulse animated" role="presentation"><a class="nav-link active" href="{% url 'friend-home' %}"><i class="fas fa-star-half"></i>Hire a friend&nbsp;<br></a></li>
+                    <li class="nav-item pulse animated" role="presentation"><a class="nav-link" href="{% url 'event-home' %}"><i class="fab fa-fort-awesome"></i><strong>&nbsp;Event's&nbsp;</strong><br></a></li>
+                    <li class="nav-item pulse animated" role="presentation"><a class="nav-link" href="{% url 'post-home' %}"><i class="fas fa-tags"></i><strong>&nbsp;Buy &amp; Sell</strong><br></a></li>
+
+
+
+                     <div class="dropdown"><button class="btn btn-secondary bg-primary border rounded border-white shadow dropdown-toggle" data-bs-hover-animate="rubberBand" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-family: Lato, sans-serif;background-color: rgb(95,125,247);padding: 5px;"><i class="fas fa-flag-checkered"></i>&nbsp;Add profile</button>
+            <div
+                class="dropdown-menu" style="color: rgb(136,140,248);">
+
+                <a class="dropdown-item" href="{% url 'friend-post-create' %}" style="color: rgb(33,152,253);"><i class="fas fa-star-half"></i>Add Hire a friend Profile</a>
+                <a class="dropdown-item" href="{% url 'event-post-create' %}" style="color: rgb(33,152,253);"><i class="fab fa-fort-awesome"></i>  Create Event</a>
+                <a class="dropdown-item" href="{% url 'post-create' %}" style="color: rgb(33,152,253);"><i class="fas fa-tags"></i> Add Buy &amp; Sell post</a>
+
+            </div>
+        </div>
+                    {% if user.is_authenticated %}
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'profile' %}"> Profile </a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'logout' %}"> Logout </a></li>
+                    {% else %}
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'register' %}">  Register</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link active" href="{% url 'login' %}">Sign in&nbsp;<br></a></li>
+                    {% endif %}
+                </ul>
+        </div>
+
+        </div>
+    </nav>
+
+      <div class="col-6">
+        {{ formv.name|as_crispy_field }}
+      </div>
+
+<a class="text-dark mx-2 mx-lg-0 ml-lg-3" href="#"><i class="fa fa-facebook-square fa-2x"></i></a>
+<a class="text-dark mx-2 mx-lg-0 ml-lg-3" href="#"><i class="fa fa-diamond fa-2x"></i></a>
+
+<form class="d-flex justify-content-center justify-content-lg-end">
+                            <div class="form-group w-75">
+                                <div class="input-group"><input class="form-control" type="text" required="" placeholder="Your email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,15}$" inputmode="email">
+                                    <div class="input-group-append"><button class="btn btn-dark" type="submit">Go!</button></div>
+                                </div>
+                            </div>
+                        </form>
+
+
+ <img src="{% static 'assets/img/ashishtie.jpg' %}" style="width:130px; height:100px" class="rounded mx-auto d-block" alt="...">
+<div class="cover">
+  <div class="hi">This is fully responsive & mobile friendly YouTube video background scaled with 16/9 aspect ratio. Actually bunch of videos - js loads randomly 1 of 4 with different start/end times, then it loops through all the vids.<br><br> Click <span>here</span> to <em>un</em>mute & <span>here</span> to see another vid (<em>0</em> of <em>0</em>). Check all of them! They're quite awesome. ;]</div>
+</div>
+	<div class="tv">
+		  <div class="screen mute" id="tv"></div>
+	</div>
+
+
+    <div class="example-box">
+        <div class="background-shapes"></div>
+        <h1><strong>&nbsp;create &amp; organize your events for FREE</strong><br></h1>
+        <p>See what's happening creative in your area</p><button class="btn btn-link border-pretty" type="button">Events&nbsp;<i class="icon ion-android-arrow-forward"></i></button>
+    </div>
+
+<div class="input-group mb-1">
+  <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+  <div class="input-group-append">
+    <button class="btn btn-outline-secondary" type="button">Button</button>
+  </div>
+</div>
+
+<--
+class Searchview(View):
+    def get(self, request, *args, **kwargs):
+        queryset = friends.objects.all().order_by('-date_posted') # ordering latest first
+        query = request.GET.get('q')
+        gender = request.GET.get('gender')
+        if gender == "Male":
+            queryset2=queryset.filter(gender = gender)
+            queryset = queryset.filter(
+                Q(address__icontains=query) |
+                Q(gender__icontains=gender)
+            ).distinct()
+            print(queryset2)
+        context = {
+            'queryset': queryset
+        }
+        return render(request, 'friends/friends_home.html', context )
+>
+
+
+<form action="{% url 'friend-home' %}" method='GET'>
+  <input type='text' name='q' value='{{ request.GET.q }}' placeholder="Enter city or name">
+  <input class="btn btn-light search-btn" type='submit' value="Search Profile" placeholder="Enter city or name">
+</form>
+
+{{context}}
+{% for ab in context %}
+            {{ab.aaaa}}
+            {% endfor %}
+
+<nav class="navbar navbar-expand-lg navbar-light " style="background:linear-gradient(120deg, #185494, #EE1D23, #FAAF18, #FFFFFF);">
+      <a class="navbar-brand" href="{% url 'post-home' %}">Gallery Buy/Sell </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+           <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'friend-home' %}">Hire a Friend <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'event-home' %}">Events</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          All categories
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Buy & Sell</a>
+          <a class="dropdown-item" href="#">Real Estate</a>
+          <a class="dropdown-item" href="#">Jobs</a>
+          <a class="dropdown-item" href="#">Services</a>
+          <a class="dropdown-item" href="#">Pets</a>
+          <a class="dropdown-item" href="#">Vacation Rentals</a>
+          <a class="dropdown-item" href="#">Community</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Cooming Soon</a>
+      </li>
+      </ul>
+
+
+      <ul class="nav justify-content-end">
+            {% if user.is_authenticated %}
+
+              <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                New Post
+              </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{% url 'post-create' %}">Add Buy & Sell Post</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{% url 'friend-post-create' %}">Add Hire a Friend profile </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{% url 'event-post-create' %}">Create Event </a>
+                </div>
+
+
+              </li>
+
+
+
+                <li class="nav-item">
+                  <a class="nav-link active" href="{% url 'profile' %}">Profile</a>
+                </li>
+
+                <li class="nav-item">
+                  <a class="nav-link active" href="{% url 'logout' %}">Logout</a>
+                </li>
+                    {% else %}
+
+
+
+
+                    <li class="nav-item">
+                  <a class="nav-link active" href="{% url 'register' %}">Register  </a>
+                </li>
+                    <li class="nav-item">
+                  <a class="nav-link disabled" href="#">or</a>
+                </li>
+                    <li class="nav-item">
+                  <a class="nav-link active" href="{% url 'login' %}">Sign In</a>
+                </li>
+                    <li class="nav-item">
+                    <a href="{% url 'register' %}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Post ad</a>
+                </li>
+                    {% endif %}
+                 </ul>
+
+
+      </div>
+</nav>
+
+
+<div class="card mb-3" style="max-width: 540px;">
+  <div class="row no-gutters">
+    <div class="col-md-16">
+      <img src="{{ object.photo.url }}" class="card-img" alt="...">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">{{object.title}}</h5>
+        <h4> <a class="text-success">₹{{object.price}}</a></h4>
+        <p class="card-text">{{ object.content }}</p>
+        <p class="card-text"><small class="text-muted">{{object.date_posted|date:"F d, Y"}}</small></p>
+        <p class="card-text">📍{{ object.location }}</p>
+                  {% if object.author == user %}
+<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-update' object.id %}"> Update</a>
+<a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' object.id %}"> Delete</a>
+    {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="row mx-auto" style="margin-top: 22px;" >
+
+    {% for posts in post %}
+    <div class="col-md-2 mx-auto">
+        <div class="mx-auto" >
+            <div class="mx-auto" >
+                 <div class="card bg-light mb-5 mx-auto">
+                     <div class="row no-gutters">
+                        <div class="col-md-12" >
+                             <a href="{% url 'post-detail' posts.id %}"><img src="media/{{ posts.photo }}" class="card-img" alt="..."></a>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="card-body">
+                                <h5> <a class="text-success"><i class="fas fa-tags"></i>{{posts.price}}</a></h5>
+                                <h6> <a class="card-title" href="{% url 'post-detail' posts.id %}">{{posts.title}}</a></h6>
+                          <p class="card-text"><small class="text-muted">{{posts.date_posted|date:"F d, Y"}}</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    < if last column in row >
+        {% if forloop.counter|divisibleby:"100" and not forloop.last %}
+        </div><div class="row">
+        {% endif %}
+    {% endfor %}
+</div>
+
+
+{% for posts in post %}
+
+
+
+<div class="card bg-light mb-3 mx-auto "  style="max-width: 940px;">
+  <div class="row no-gutters">
+    <div class="col-md-4">
+      <a href="{% url 'friend-post-detail' posts.id %}"><img src="media/{{ posts.photo }}" class="card-img" alt="..."></a>
+    </div>
+    <div class="col-md-8 ">
+      <div class="card-body">
+            <h5> </h5>
+        <h4> <a class="card-title" href="{% url 'friend-post-detail' posts.id %}">{{ posts.name }} </a></h4>
+        <p class="card-text"><small class="text-muted">{{posts.age}}</small></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+{% endfor %}
+
+
+</body>
+</html-->

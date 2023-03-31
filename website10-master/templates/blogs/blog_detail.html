@@ -1,0 +1,77 @@
+
+{% include 'base.html' %}
+{% include 'nav.html' %}
+{% load static %}
+
+<head>
+  <title>{% block title %}Blog Details {% endblock %}</title>
+</head>
+{% block body %}
+<body style="background-color: #ffca78;
+background-image: linear-gradient(62deg, #ffca78 0%, #F7CE68 100%);">
+
+<div class="card bg-light mb-3 mx-auto"  style="max-width: 1200px; margin-top: 22px;background-color: #faf5ae;
+background-image: linear-gradient(225deg, #faf5ae 0%, #fffcb4 100%);">
+    <div class="row no-gutters">
+
+    <div class="col-md-4 ">
+      <div class="card-body">
+        <div class="card-header"><h5 class="card-title"> {{object.title}}</h5>
+<h6 class="text-info"> {{object.title|truncatewords:50}}</h6>
+        </div>
+        <div class="card-body text-dark">
+            <h6 class="card-title">{{ object.name }} </h6>
+            <h5 class="card-title"><i class="fas fa-map-marker-alt"></i> {{ object.location }} </h5>
+            <small class="text-muted">{{ object.category }}</small>
+
+        </div>
+      </div>
+    </div>
+        <div class="col-md-8">
+        <img src="{{ object.photo.url }}" class=" img-fluid float-right" alt="..."  >
+      </div>
+    </div>      <!-- <p class="card-text"><small class="text-muted">{{object.date_posted}}</small></p>-->
+
+    <div class="col-md-8">
+
+      <div class="card-body">
+          <p class="card-text"></p>
+        <h6 class="card-title">{{ object.content | safe}}</h6>
+        <p class="card-text">{{ object.description }}</p>
+
+          <br>
+
+           <p>
+  <a class="btn btn-outline-secondary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+    Email address
+  </a>
+</p>
+<div class="collapse" id="collapseExample">
+  <div class="card card-body">
+      <h5 class="text-primary"><i class="fas fa-envelope-open"></i> {{object.email}}</h5>
+  </div>
+</div>
+          <p class="card-text"><small class="text-muted"><i class="far fa-calendar-check"></i>  Created on {{object.date_posted|date:"F d, Y"}}</small></p>
+          <div class="fb-like" data-href="http://127.0.0.1:8000/Blog{{object.id}}" data-width="" data-layout="button_count" data-action="like" data-size="large" data-share="true"></div><br>
+        <div class="fb-comments" data-href="http://127.0.0.1:8000/blog{{object.id}}" data-numposts="5" data-width=""></div>
+      </div>
+    </div>
+
+
+
+
+ <div class="card-header">          {% if object.author == user %}
+<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'blog-update' object.id %}"> Update</a>
+<a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'blog-delete' object.id %}"> Delete</a>
+   <p class="card-text"><small class="text-muted"><i class="far fa-calendar-check"></i>  Created on {{object.date_posted|date:"F d, Y"}}</small></p>
+    {% endif %}</div>
+
+
+
+
+
+
+
+</body>
+
+{% endblock %}
