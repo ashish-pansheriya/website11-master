@@ -88,7 +88,7 @@ def payment(request):
 
         transRetrive = stripe.Charge.retrieve(
             charge["id"],
-            api_key='sk_test_51MZU2lDGd4yPq3jdwAyL0LD8LTu8yfsPg96iyhpKPZ7XikvpBIvDDiVHgdKFx4JTizWkc1MZyW82b0OmcTqMSQXv00lHquZLBH'
+            api_key='sk_test_51MplQ3HVK4Fe1CpbliSpJuo6IgKoLTUF2AGR005NVEtrJlpIe0y1uGgNMCWV51d0gIQ7tl9BNLi6dkKgjgGpO9N000e5mT3Y0k'
             )
         charge.save() # Uses the same API Key.
 
