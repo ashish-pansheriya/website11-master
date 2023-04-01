@@ -47,20 +47,13 @@ def payment(request):
         amount = int(request.POST['amount'])
 
         try:
-            charge = stripe.Charge.create(
-                amount = amount,
-                currency='usd',
-                description='payment successful',
-                source=request.POST['stripeToken']
+    
+            customer = stripe.Customer.create(
+                email = request.POST.get('email'),
+                name = request.POST.get('full_name'),
+                description = "Payment",
+                source=request.POST['stripeToken'],
             )
-            
-            transRetrive = stripe.Charge.retrieve(
-            charge["id"],
-            api_key="Key"
-            )
-        charge.save() # Uses the same API Key.
-
-            messages.success(request, "Payment succesful!.")
 
         except stripe.error.CardError as e:
             messages.error(request, 'There was an error charging your card, ensure ypu have sufficient funds')
@@ -86,10 +79,24 @@ def payment(request):
             messages.error(request, 'Error paying with your card at the moment')
             return redirect('payment')
 
+        charge = stripe.Charge.create(
+            customer=customer,
+            amount = int(amount) *100,
+            currency = 'usd',
+            description='payment',
+        )
+
+        transRetrive = stripe.Charge.retrieve(
+            charge["id"],
+            api_key='sk_test_51MZU2lDGd4yPq3jdwAyL0LD8LTu8yfsPg96iyhpKPZ7XikvpBIvDDiVHgdKFx4JTizWkc1MZyW82b0OmcTqMSQXv00lHquZLBH'
+            )
+        charge.save() # Uses the same API Key.
+
+        messages.success(request, "Payment succesful!.")
         return redirect('/')
-    return render(request, 'payment.html', {
+
+    return render(request, 'payment-demo.html', {
         'Key':Key,
-        'amount': amount
     })
 
 
